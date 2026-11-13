@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon site</title>
+</head>
+<body>
+	<h1>Bienvenue sur mon site</h1>
+	<h2>Votre position actuelle :</h2>
+	<p>Latitude : <strong id="lat">En attente...</strong></p>
+	<p>Longitude : <strong id="lon">En attente...</strong></p>
+	<p>Précision : <strong id="acc">En attente...</strong> mètres</p>
+	<p>Altitude : <strong id="altitude">En attente...</strong> </p>
+	<p>Vitesse : <strong id="vitesse">En attente...</strong> métres/s</p>
+	<p>Date : <strong id="date">En attente...</strong> </p>
+
+	<script>
+		var options = {
+		enableHighAccuracy: true,
+		timeout: 5000,
+		maximumAge: 0,
+		};
+
+		function success(pos) {
+		var crd = pos.coords;
+
+		document.getElementById("lat").textContent = crd.latitude;
+		document.getElementById("lon").textContent = crd.longitude;
+		document.getElementById("acc").textContent = crd.accuracy;
+		document.getElementById("altitude").textContent = crd.altitude;
+		document.getElementById("vitesse").textContent = crd.speed;
+		document.getElementById("date").textContent = new Date(pos.timestamp).toLocaleDateString() + " " + new Date(pos.timestamp).toLocaleTimeString();
+		}
+
+		function error(err) {
+		console.warn(`ERREUR (${err.code}): ${err.message}`);
+		}
+
+		navigator.geolocation.getCurrentPosition(success, error, options);
+	</script>
+	<h2>Votre position avec watchPosition :</h2>
+	<p>Latitude : <strong id="lat_watch">En attente...</strong></p>
+	<p>Longitude : <strong id="lon_watch">En attente...</strong></p>
+	<p>Précision : <strong id="acc_watch">En attente...</strong> mètres</p>
+	<p>Altitude : <strong id="altitude_watch">En attente...</strong> </p>
+	<p>Vitesse : <strong id="vitesse_watch">En attente...</strong> métres/s</p>
+	<p>Date : <strong id="date_watch">En attente...</strong> </p>
+	<script>
+		var options = {
+		enableHighAccuracy: true,
+		timeout: 5000,
+		maximumAge: 0,
+		};
+
+		function success(pos) {
+		var crd = pos.coords;
+
+		document.getElementById("lat_watch").textContent = crd.latitude;
+		document.getElementById("lon_watch").textContent = crd.longitude;
+		document.getElementById("acc_watch").textContent = crd.accuracy;
+		document.getElementById("altitude_watch").textContent = crd.altitude;
+		document.getElementById("vitesse_watch").textContent = crd.speed;
+		document.getElementById("date_watch").textContent = new Date(pos.timestamp).toLocaleDateString() + " " + new Date(pos.timestamp).toLocaleTimeString();
+		}
+
+		function error(err) {
+		console.warn(`ERREUR (${err.code}): ${err.message}`);
+		}
+
+		navigator.geolocation.watchPosition(success, error, options);
+	</script>
+
+</body>
